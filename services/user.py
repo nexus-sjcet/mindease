@@ -1,19 +1,25 @@
 from prisma import Prisma
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
 
-def get_user(phone: str = None):
+class NewUser(BaseModel):
+    name: str
+    phone: str
+
+
+async def get_user_service(phone: str = None):
     db = Prisma()
     await db.connect()
-    result = await db.chat.find_unique(where={"phone": phone})
+    result = await db.user.find_unique(where={"phone": phone})
     await db.disconnect()
     return {"success": True, "data": result}
 
 
-async def create_user():
+async def create_user_service(data: NewUser):
     db = Prisma()
     await db.connect()
-    result = await db.chat.create(data={})
+    result = await db.user.create(data=data)
     await db.disconnect()
     data = {"success": True, "data": result, "message": "New Chat Created"}
     return data
