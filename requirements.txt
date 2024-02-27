@@ -3,3 +3,4 @@ python-dotenv
 notebook
 kor
 langchain
+twilio
