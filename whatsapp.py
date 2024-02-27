@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
 
 load_dotenv()
 
@@ -17,3 +18,7 @@ def sendMessage(message: str, phone: str):
     """
     return client.messages.create(body=message, from_=f'whatsapp:{TWILIO_NUMBER}', to=f"whatsapp:{phone}")
 
+def generateResponse(message: str):
+    response = MessagingResponse()
+    response.message(message)
+    return response
