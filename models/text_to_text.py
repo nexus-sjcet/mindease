@@ -1,8 +1,13 @@
 from openai import OpenAI
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
-def text_to_text(message, TOGETHER_API_KEY):
+TOGETHER_API_KEY = os.environ["TOGETHER_API_KEY"]
+
+
+def text_to_text(message):
 
     client = OpenAI(
         api_key=TOGETHER_API_KEY,

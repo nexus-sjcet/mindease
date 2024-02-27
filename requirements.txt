@@ -3,3 +3,7 @@ python-dotenv
 notebook
 kor
 langchain
+uvicorn
+fastapi
+pydantic
+prisma

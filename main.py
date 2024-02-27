@@ -1,14 +1,12 @@
-from models import text_to_text
 import os
+from fastapi import FastAPI
+from routes import chat
+from models import text_to_text
 
-from dotenv import load_dotenv
-
-load_dotenv()
-TOGETHER_API_KEY = os.environ["TOGETHER_API_KEY"]
-
+app = FastAPI()
+app.include_router(chat.app, prefix="/api/chat", tags=["chat"])
 
 if __name__ == "__main__":
-    text_data = text_to_text.text_to_text(
-        "Tell me about San Francisco", TOGETHER_API_KEY
-    )
+
+    text_data = text_to_text.text_to_text("Tell me about San Francisco")
     print(text_data)
