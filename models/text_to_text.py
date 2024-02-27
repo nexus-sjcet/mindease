@@ -1,10 +1,8 @@
 from openai import OpenAI
 import os
 
-TOGETHER_API_KEY = os.environ.get("TOGETHER_API_KEY")
 
-
-def text_to_text(message):
+def text_to_text(message, TOGETHER_API_KEY):
 
     client = OpenAI(
         api_key=TOGETHER_API_KEY,
