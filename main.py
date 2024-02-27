@@ -6,3 +6,4 @@ import whatsapp
 
 app = FastAPI()
 app.include_router(chat.app, prefix="/api/chat", tags=["chat"])
+
