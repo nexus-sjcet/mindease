@@ -18,7 +18,19 @@ class NewScores(BaseModel):
 @app.get("/")
 async def get_score(phone: str):
     try:
-        return await score.get_score_by_phone(phone)
+        return await score.get_score_by_phone(phone, False)
+    except Exception as e:
+        print(e)
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": "Something Went Wrong!"},
+        )
+
+
+@app.get("/latest")
+async def get_score(phone: str):
+    try:
+        return await score.get_score_by_phone(phone, True)
     except Exception as e:
         print(e)
         return JSONResponse(

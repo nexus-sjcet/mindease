@@ -12,11 +12,13 @@ class NewScores(BaseModel):
     userPhone: str
 
 
-async def get_score_by_phone(phone: str):
+async def get_score_by_phone(phone: str, latest: bool):
     db = Prisma()
     await db.connect()
     result = await db.score.find_many(where={"userPhone": phone})
     await db.disconnect()
+    if latest:
+        return {"success": True, "data": result[-1]}
     return {"success": True, "data": result}
 
 
@@ -25,12 +27,12 @@ async def add_new_score(scores: NewScores):
     await db.connect()
     result = await db.score.create(
         {
-            "extroversion": scores.extroversion,
-            "agreeableness": scores.agreeableness,
-            "conscientiousness": scores.conscientiousness,
-            "neuroticism": scores.neuroticism,
-            "openness": scores.openness,
-            "user": {"connect": {"phone": scores.userPhone}},
+            "extroversion": scores["extroversion"],
+            "agreeableness": scores["agreeableness"],
+            "conscientiousness": scores["conscientiousness"],
+            "neuroticism": scores["neuroticism"],
+            "openness": scores["openness"],
+            "user": {"connect": {"phone": scores["userPhone"]}},
         }
     )
     await db.disconnect()
