@@ -5,3 +5,5 @@ __pycache__
 *.log
 images/*
 !images/.gitkeep
+
+.ipynb_checkpoints
