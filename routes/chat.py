@@ -7,6 +7,7 @@ import whatsapp
 
 app = APIRouter()
 
+
 @app.post("/message")
 async def new_message(request: Request):
     try:
@@ -23,16 +24,17 @@ async def new_message(request: Request):
         name = req.get("ProfileName")
 
         # check db for user existing with the phone number (From)
-        user_response = await user.get_user_service(phone)
+        user_response = await user.get_user_by_phone(phone)
         if user_response["data"] == None:
-            await user.create_user_service({"name": name, "phone": phone})
+            await user.create_user({"name": name, "phone": phone})
+
         # give the data for LLM analysis:
         # if type image => image-to-text then text-analyze
         # if type text => text-analyze
 
         return Response(
             content=str(whatsapp.generateResponse("This is a response")),
-            media_type="application/xml"
+            media_type="application/xml",
         )
     except Exception as e:
         print(e)
