@@ -3,6 +3,13 @@ python-dotenv
 notebook
 kor
 langchain
-pillow
 rich
 requests
+twilio
+uvicorn
+fastapi
+pydantic
+prisma
+python-multipart
+pillow
+matplotlib

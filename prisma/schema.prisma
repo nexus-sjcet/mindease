@@ -1,0 +1,30 @@
+generator client {
+    provider             = "prisma-client-py"
+    interface            = "asyncio"
+    recursive_type_depth = 5
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        String   @id @unique @default(dbgenerated("(gen_random_uuid())::text"))
+    name      String
+    phone     String   @unique
+    createdAt DateTime @default(now()) @db.Timestamp(0)
+    scores    Score[]
+}
+
+model Score {
+    id                String   @id @unique @default(dbgenerated("(gen_random_uuid())::text"))
+    extroversion      Float
+    agreeableness     Float
+    conscientiousness Float
+    neuroticism       Float
+    openness          Float
+    user              User?    @relation(fields: [userPhone], references: [phone])
+    userPhone         String?
+    createdAt         DateTime @default(now()) @db.Timestamp(0)
+}

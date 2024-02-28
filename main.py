@@ -1,14 +1,12 @@
-from models import text_to_text
 import os
+from fastapi import FastAPI
+from routes import chat, score
+import whatsapp
+import graph
 
-from dotenv import load_dotenv
+app = FastAPI()
+app.include_router(chat.app, prefix="/api/chat", tags=["chat"])
+app.include_router(score.app, prefix="/api/score", tags=["score"])
 
-load_dotenv()
-TOGETHER_API_KEY = os.environ["TOGETHER_API_KEY"]
 
-
-if __name__ == "__main__":
-    text_data = text_to_text.text_to_text(
-        "Tell me about San Francisco", TOGETHER_API_KEY
-    )
-    print(text_data)
+graph.generate_graph(3, 5, 2, 0.4, 4, "images/graph1.png")
