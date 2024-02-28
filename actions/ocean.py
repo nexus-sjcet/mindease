@@ -81,5 +81,3 @@ def generate_ocean_score(text:str):
 
     chain = create_extraction_chain(llm, schema, encoder_or_encoder_class="json")
     return chain.invoke(text)["text"]["data"]
-
-print(generate_ocean_score("Summary: I am not happy.  don't like to party. I ate sushi for the first time yesterday"))
