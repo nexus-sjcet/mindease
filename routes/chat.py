@@ -3,7 +3,10 @@ from fastapi import APIRouter, Form, Request, Response
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from services import user
-import whatsapp
+from services import whatsapp
+from actions import generate
+from models import image_to_text
+from models import mistral
 
 app = APIRouter()
 
@@ -31,9 +34,11 @@ async def new_message(request: Request):
         # give the data for LLM analysis:
         # if type image => image-to-text then text-analyze
         # if type text => text-analyze
+        
+        message = mistral.text_to_text(body)
 
         return Response(
-            content=str(whatsapp.generateResponse("This is a response")),
+            content=str(whatsapp.generateResponse(message)),
             media_type="application/xml",
         )
     except Exception as e:
