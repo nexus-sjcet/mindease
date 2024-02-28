@@ -72,12 +72,5 @@ schema = Object(
 )
 
 def generate_ocean_score(text:str):
-    prompt = ChatPromptTemplate.from_template("""
-    You are a bot that predicts the levels of openness, concientiousness, extraversion, agreeableness and neuroticism from a description of a person. Predict these levels for the text below.
-    {text}
-    """)
-
-    output_formatter = StrOutputParser()
-
     chain = create_extraction_chain(llm, schema, encoder_or_encoder_class="json")
     return chain.invoke(text)["text"]["data"]
