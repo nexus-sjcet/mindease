@@ -3,6 +3,7 @@ python-dotenv
 notebook
 kor
 langchain
+langchain-together
 twilio
 uvicorn
 fastapi
