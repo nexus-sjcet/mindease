@@ -20,7 +20,7 @@ async def new_message(request: Request):
             mediaUrl = req.get("MediaUrl0")
         else:
             body = ""
-        phone = req.get("From")
+        phone = req.get("From").split(":")[1]
         name = req.get("ProfileName")
 
         # check db for user existing with the phone number (From)
