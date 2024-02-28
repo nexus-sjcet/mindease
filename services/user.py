@@ -8,7 +8,7 @@ class NewUser(BaseModel):
     phone: str
 
 
-async def get_user_service(phone: str = None):
+async def get_user_by_phone(phone: str = None):
     db = Prisma()
     await db.connect()
     result = await db.user.find_unique(where={"phone": phone})
@@ -16,7 +16,7 @@ async def get_user_service(phone: str = None):
     return {"success": True, "data": result}
 
 
-async def create_user_service(data: NewUser):
+async def create_user(data: NewUser):
     db = Prisma()
     await db.connect()
     result = await db.user.create(data=data)
