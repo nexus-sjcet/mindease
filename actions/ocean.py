@@ -38,7 +38,7 @@ schema = Object(
 
 def generate_ocean_score(text:str):
     prompt = ChatPromptTemplate.from_template("""
-    nput: A piece of text (e.g., a news article, social media post, email, etc.)
+    Input: A piece of text (e.g., a news article, social media post, email, etc.)
 
     Output: A score between 0 and 1 for each of the Big Five personality traits (OCEAN):
 
