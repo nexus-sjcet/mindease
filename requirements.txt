@@ -12,3 +12,6 @@ prisma
 python-multipart
 pillow
 matplotlib
+beautifulsoup4
+requests
+kor
