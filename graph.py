@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.patches import Circle, RegularPolygon
 from matplotlib.path import Path
 from matplotlib.projections import register_projection
@@ -96,7 +97,13 @@ def radar_factory(num_vars, frame='circle'):
     register_projection(RadarAxes)
     return theta
 
-def generate_graph(openness: float, conscientiousness: float, extraversion: float, agreeableness: float, neuroticism: float):
+def generate_graph(openness: float, conscientiousness: float, extraversion: float, agreeableness: float, neuroticism: float, save_path: str):
     theta = radar_factory(5, frame='polygon')
     fig, axis = plt.subplots(subplot_kw=dict(projection='radar'))
     fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
+
+    labels = ("Openness", "Conscientiousness", "Extraversion", "Agreeableness", "Neuroticism")
+    axis.plot(theta, [openness, conscientiousness, extraversion, agreeableness, neuroticism], color='g')
+    axis.fill(theta, [openness, conscientiousness, extraversion, agreeableness, neuroticism], facecolor='g', alpha=0.25, label="_nolegend_")
+    axis.set_varlabels(labels)
+    plt.savefig(save_path)
