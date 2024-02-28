@@ -4,6 +4,8 @@ notebook
 kor
 langchain
 langchain-together
+rich
+requests
 twilio
 uvicorn
 fastapi

@@ -1,4 +1,7 @@
 *env
 __pycache__
+
+*.exe
+*.log
 images/*
 !images/.gitkeep
