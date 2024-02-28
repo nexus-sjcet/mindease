@@ -3,11 +3,9 @@ python-dotenv
 notebook
 kor
 langchain
-<<<<<<< HEAD
 twilio
-=======
 uvicorn
 fastapi
 pydantic
 prisma
->>>>>>> 11033ee5db6a043877b862859234ffef2e50a95f
+python-multipart
