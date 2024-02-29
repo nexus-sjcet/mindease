@@ -123,12 +123,12 @@ def generate_graph(
     axis.plot(
         theta,
         [openness, conscientiousness, extroversion, agreeableness, neuroticism],
-        color="g",
+        color="r",
     )
     axis.fill(
         theta,
         [openness, conscientiousness, extroversion, agreeableness, neuroticism],
-        facecolor="g",
+        facecolor="r",
         alpha=0.25,
         label="_nolegend_",
     )

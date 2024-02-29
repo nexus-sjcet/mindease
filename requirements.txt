@@ -4,6 +4,7 @@ notebook
 kor
 langchain
 langchain-together
+langchain_openai
 rich
 requests
 twilio

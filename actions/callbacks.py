@@ -1,11 +1,13 @@
+from services import call
 def find_nearest_medical_care(data):
     return f'''Nearest {data.type} Hospital is {data.location}'''
 
 def set_emergency_contacts(data):
-    db = {"name":data.name, "number":data.number}
-    return "Done adding contact"
+    db = {"name":data["name"], "number":data["number"]}
+    return f"Done adding contact: {data}"
 
 def initiate_emergency_call(data):
+    call.make_call("+918921964884")
     return f'''Initiated call to {data}'''
 
 def picture(data): 
