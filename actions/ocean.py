@@ -47,7 +47,7 @@ schema = Object(
         ),
         Number(
             id="conscientiousness",
-            description="hjdf",
+            description="Conscientiousness is a tendency to be self-disciplined, act dutifully, and strive for achievement against measures or outside expectations. It is related to people's level of impulse control, regulation, and direction. High conscientiousness is often perceived as being stubborn and focused. Low conscientiousness is associated with flexibility and spontaneity, but can also appear as sloppiness and lack of reliability. High conscientiousness indicates a preference for planned rather than spontaneous behaviour.",
             examples=[
                 (
                     "They prioritize organization and meticulous planning, creating detailed schedules and following them rigorously.",
@@ -73,7 +73,7 @@ schema = Object(
         ),
         Number(
             id="extroversion",
-            description="hjdf",
+            description="Extraversion is characterised by breadth of activities (as opposed to depth), surgency from external activities/situations, and energy creation from external means.The trait is marked by pronounced engagement with the external world. Extraverts enjoy interacting with people, and are often perceived as energetic. They tend to be enthusiastic and action-oriented. They possess high group visibility, like to talk, and assert themselves. Extraverts may appear more dominant in social settings, as opposed to introverts in that setting.",
             examples=[
                 (
                     "They are most comfortable in quiet, solitary environments, finding peace and comfort in their own company.",
@@ -99,7 +99,7 @@ schema = Object(
         ),
         Number(
             id="agreeableness",
-            description="hjdf",
+            description="Agreeableness is the general concern for social harmony. Agreeable individuals value getting along with others. They are generally considerate, kind, generous, trusting and trustworthy, helpful, and willing to compromise their interests with others.Agreeable people also have an optimistic view of human nature.",
             examples=[
                 (
                     "They prioritize their own needs and desires over the needs of others, often appearing self-centered in their actions.",
@@ -125,7 +125,7 @@ schema = Object(
         ),
         Number(
             id="neuroticism",
-            description="hjdf",
+            description="Neuroticism is the tendency to have strong negative emotions, such as anger, anxiety, or depression.It is sometimes called emotional instability, or is reversed and referred to as emotional stability.",
             examples=[
                 (
                     "They experience frequent and intense emotional fluctuations, readily displaying emotions and struggling to regulate them at times.",
@@ -155,4 +155,4 @@ schema = Object(
 
 def generate_ocean_score(text: str):
     chain = create_extraction_chain(llm, schema, encoder_or_encoder_class="json")
-    return chain.invoke(text)["text"]["data"]
+    return chain.run(text)["data"]
