@@ -12,15 +12,17 @@ TOGETHER_API_KEY = os.environ["TOGETHER_API_KEY"]
 llm = Together(
     model="mistralai/Mistral-7B-Instruct-v0.2",
     max_tokens=1024,
-    together_api_key=TOGETHER_API_KEY
+    together_api_key=TOGETHER_API_KEY,
 )
 
 schema = Object(
     id="score",
+    description="Process of converting human charachers attributes in 0 to 10, where 0 is very low and 10 is very high. The Big Five model was built to understand the relationship between personality and academic behaviour. so we need 5 type of numerical values from description of a person's image.",
     attributes=[
         Number(
             id="openness",
-            example=[
+            description="Openness is a general appreciation for art, emotion, adventure, unusual ideas, imagination, curiosity, and variety of experience. People who are open to experience are intellectually curious, open to emotion, sensitive to beauty, and willing to try new things. They tend to be, when compared to closed people, more creative and more aware of their feelings. They are also more likely to hold unconventional beliefs. From the description of image, get apporpriate openness.",
+            examples=[
                 (
                     "They rarely venture outside their familiar routines, preferring predictable and comfortable environments.",
                     0,
@@ -45,7 +47,8 @@ schema = Object(
         ),
         Number(
             id="conscientiousness",
-            example=[
+            description="hjdf",
+            examples=[
                 (
                     "They prioritize organization and meticulous planning, creating detailed schedules and following them rigorously.",
                     9,
@@ -70,7 +73,8 @@ schema = Object(
         ),
         Number(
             id="extroversion",
-            example=[
+            description="hjdf",
+            examples=[
                 (
                     "They are most comfortable in quiet, solitary environments, finding peace and comfort in their own company.",
                     0,
@@ -95,7 +99,8 @@ schema = Object(
         ),
         Number(
             id="agreeableness",
-            example=[
+            description="hjdf",
+            examples=[
                 (
                     "They prioritize their own needs and desires over the needs of others, often appearing self-centered in their actions.",
                     0,
@@ -120,7 +125,8 @@ schema = Object(
         ),
         Number(
             id="neuroticism",
-            example=[
+            description="hjdf",
+            examples=[
                 (
                     "They experience frequent and intense emotional fluctuations, readily displaying emotions and struggling to regulate them at times.",
                     10,
@@ -146,6 +152,7 @@ schema = Object(
     ],
 )
 
-def generate_ocean_score(text:str):
+
+def generate_ocean_score(text: str):
     chain = create_extraction_chain(llm, schema, encoder_or_encoder_class="json")
     return chain.invoke(text)["text"]["data"]

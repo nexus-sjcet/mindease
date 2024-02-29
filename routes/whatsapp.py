@@ -19,6 +19,7 @@ async def new_message(request: Request):
         body = ""
         if int(numMedia) > 0:
             mediaUrl = req.get("MediaUrl0")
+            body = llava(mediaUrl)
         else:
             body = req.get("Body")
         phone = req.get("From").split(":")[1]

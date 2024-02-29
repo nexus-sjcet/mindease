@@ -1,15 +1,23 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import json
 import io
+import os
 import base64
+from dotenv import load_dotenv
 
 from rich import print
 from PIL import Image
 
+load_dotenv()
+
+ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
+AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 
 class LLAVA:
-    SYSTEM_PROMPT = """A chat between a curious human and an artificial intelligence assistant. 
-The assistant gives helpful, detailed, and polite answers to the human's questions."""
+    SYSTEM_PROMPT = """Your are a chatbot and a detailed information extraction asssitance. 
+The assistant that gives helpful, detailed, and polite answers to the human's questions. Information includes details of surroundings, objects and peoples emotions in it.
+Never forget to extract information about emotional attachment of people in it"""
 
     def __init__(self):
         self.url = 'http://127.0.0.1:8080/completion'
@@ -39,7 +47,8 @@ The assistant gives helpful, detailed, and polite answers to the human's questio
 
     def process_image(self, image):
         if image.startswith('http://') or image.startswith('https://'):
-            response = requests.get(image)
+            basic = HTTPBasicAuth(ACCOUNT_SID, AUTH_TOKEN)
+            response = requests.get(image, auth=basic)
             response.raise_for_status()
             img_data = io.BytesIO(response.content)
         else:
