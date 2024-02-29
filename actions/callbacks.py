@@ -1,6 +1,6 @@
 from services import call
 def find_nearest_medical_care(data):
-    return f'''Nearest {data.type} Hospital is {data.location}'''
+    return f'''Nearest {data["type"]} Hospital is {data["location"]}'''
 
 def set_emergency_contacts(data):
     db = {"name":data["name"], "number":data["number"]}
