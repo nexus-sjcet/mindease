@@ -5,6 +5,8 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from services import user, whatsapp, supastore, graph, score
 from actions import ocean, message
+from actions.callbacks import getPriority
+from models import image_to_text
 
 app = APIRouter()
 
@@ -19,7 +21,7 @@ async def new_message(request: Request):
         body = ""
         if int(numMedia) > 0:
             mediaUrl = req.get("MediaUrl0")
-            body = llava(mediaUrl)
+            body = image_to_text.llava(mediaUrl)
         else:
             body = req.get("Body")
         phone = req.get("From").split(":")[1]
@@ -68,9 +70,11 @@ async def new_message(request: Request):
         # if type image => image-to-text then text-analyze
         # if type text => text-analyze
         response = message.generate_message(body)
+        text = getPriority(response)
+        
 
         return Response(
-            content=str(whatsapp.generateResponse(response)),
+            content=str(whatsapp.generateResponse(text)),
             media_type="application/xml",
         )
     except Exception as e:

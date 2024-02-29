@@ -5,7 +5,6 @@ from kor import create_extraction_chain, Object, Text, Option, Selection
 
 actions = Object(
     id="actions",
-    many=True,
     description ="Actions that are required to run while user mensions his requirements",
     attributes=[
         Object(
@@ -54,9 +53,13 @@ actions = Object(
 )
 
 def getSchema():
-    schema = Object(
+    return Object(
         id="message",
-        description ="You are a health care assistant, working for people who suffer small mental and stress issues. You need to engage with these people and talk to them about there life. You can tell stories, listern to them, and teach them about the importance of having purpose in life. Return mutliple object attributes if they want",
+        description ='''You are a health care assistant, working for people who suffer small mental and stress issues. You need to engage with these people and talk to them about there life. You can tell stories, listern to them, and teach them about the importance of having purpose in life. Return mutliple object attributes. 
+                    Prioritize healthy habits: Regular exercise, balanced meals, and sufficient sleep contribute significantly to stress resilience.
+                 Mindfulness and relaxation techniques: Techniques like deep breathing, meditation, and progressive muscle relaxation can activate your body's relaxation response, helping you manage stress in the moment.
+                 Engage in activities you enjoy: Participating in hobbies and activities you find enjoyable can bring pleasure and a sense of accomplishment, reducing stress levels.
+                 Connect with loved ones: Strong social connections provide support and belonging, which can buffer the impact of stress.''',
         attributes=[
             Text(
                 id="intro_message",

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from langchain_together import Together
 from langchain_core.prompts import ChatPromptTemplate
 from kor import create_extraction_chain, Object, Text
+from schema.base import getSchema
 
 load_dotenv()
 
@@ -14,38 +15,35 @@ llm = Together(
     together_api_key=TOGETHER_API_KEY
 )
 
-schema = Object(
-    id="message",
-    attributes=[
-        Text(
-            id="new",
-            examples=[(
-                """
-                [summary] A conversation about stress
-                Human: What can I do?
-                """, """
-                Prioritize healthy habits: Regular exercise, balanced meals, and sufficient sleep contribute significantly to stress resilience.
-                Mindfulness and relaxation techniques: Techniques like deep breathing, meditation, and progressive muscle relaxation can activate your body's relaxation response, helping you manage stress in the moment.
-                Engage in activities you enjoy: Participating in hobbies and activities you find enjoyable can bring pleasure and a sense of accomplishment, reducing stress levels.
-                Connect with loved ones: Strong social connections provide support and belonging, which can buffer the impact of stress.
-                """
-            ), (
-                """
-                [summary] none
-                Human: Hi
-                """, """
-                Hello! How can I help you today?
-                """
-            )]
-        )
-    ]
-)
+# schema = Object(
+#     id="message",
+#     attributes=[
+#         Text(
+#             id="new",
+#             examples=[(
+#                 """
+#                 [summary] A conversation about stress
+#                 Human: What can I do?
+#                 """, """
+#                 Prioritize healthy habits: Regular exercise, balanced meals, and sufficient sleep contribute significantly to stress resilience.
+#                 Mindfulness and relaxation techniques: Techniques like deep breathing, meditation, and progressive muscle relaxation can activate your body's relaxation response, helping you manage stress in the moment.
+#                 Engage in activities you enjoy: Participating in hobbies and activities you find enjoyable can bring pleasure and a sense of accomplishment, reducing stress levels.
+#                 Connect with loved ones: Strong social connections provide support and belonging, which can buffer the impact of stress.
+#                 """
+#             ), (
+#                 """
+#                 [summary] none
+#                 Human: Hi
+#                 """, """
+#                 Hello! How can I help you today?
+#                 """
+#             )]
+#         )
+#     ]
+# )
 
 def generate_message(message:str, summary:str="none"):
-    chain = create_extraction_chain(llm, schema, encoder_or_encoder_class="json")
-    return chain.invoke(f"""
-    [summary] {summary}
-    Human: {message}
-    """)["text"]["data"]["message"]["new"].strip()
+    chain = create_extraction_chain(llm, getSchema(), encoder_or_encoder_class="json")
+    return chain.run(message)["data"]
 
 # print(generate_message("Hi, what can i do", "nA conversation about depression"))
